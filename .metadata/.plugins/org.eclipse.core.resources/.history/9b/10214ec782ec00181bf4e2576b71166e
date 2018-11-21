@@ -1,0 +1,23 @@
+package com.revature.beans;
+
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+public class ReservedRoom {
+	
+	private int id;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "room_type_id")
+	private RoomType type;
+	
+	private int numberOfRooms;
+	
+	private int roomTypeId;
+	
+	private int reservationId;
+	
+	private String status;
+
+}

@@ -1,0 +1,14 @@
+package com.revature.beans;
+
+public class OccupiedRoom {
+
+	private int id;
+	
+	private Date check_in;
+	
+	private Date check_out;
+	
+	private int room_id;
+	
+	private int reservation_id;
+}
