@@ -1,3 +1,5 @@
 INDEX VERSION 1.131
 C:\Users\jonbe\OneDrive\Desktop\Project2\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\3668687774.index
 \project2-DB\src\main\resources
+C:\Users\jonbe\OneDrive\Desktop\Project2_stuff\Backend\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\3714498423.index
+\Project2\src\main\resources

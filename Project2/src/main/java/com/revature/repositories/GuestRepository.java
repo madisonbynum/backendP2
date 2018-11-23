@@ -9,7 +9,7 @@ public class GuestRepository {
 	SessionFactory sf;
 	
 	/**
-	 * Meant as
+	 * Meant as a way to extract the guest information
 	 * @param sf
 	 */
 	

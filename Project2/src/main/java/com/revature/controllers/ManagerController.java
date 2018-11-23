@@ -17,6 +17,10 @@ import com.revature.beans.Reservation;
 import com.revature.beans.Room;
 import com.revature.services.UserServices;
 
+/**
+ * Will pick out functions from the UserService class that
+ * pertain to the Manager.
+ */
 @RestController
 @RequestMapping("")
 public class ManagerController {
@@ -57,6 +61,12 @@ public class ManagerController {
 	@ResponseStatus(HttpStatus.CREATED)
 	public List<Room> availableRooms(String status) {// need to check this too.
 		return this.userService.availableRooms(status);
+	}
+	
+	@PutMapping("") 
+	@ResponseStatus(HttpStatus.CREATED) 
+	public void changeRoomStatust(String status) {
+		return this.userService
 	}
 	
 	// This can be used to cancel a new reservation
