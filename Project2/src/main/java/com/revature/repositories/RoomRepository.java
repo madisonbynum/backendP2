@@ -21,12 +21,14 @@ public class RoomRepository {
 		sf.getCurrentSession().persist(rs);
 	}
 	
+	// Updates an element of the room that is targeted
 	@Transactional
 	public void update(Reservation rs) {
 		sf.getCurrentSession().update(rs);
 	}
 	
 	// Still trying to do more research on this.
+	// Gets a list of rooms w/ the matching status, from the database.
 	@Transactional
 	public List<Room> get(String status) {
 		String query = "Select * FROM room where status = :status";

@@ -16,6 +16,7 @@ import com.revature.beans.Guest;
 @EnableTransactionManagement
 public class HibernateConfig {
 
+	// Configures the session factory and uses the configurations from the hibernate.cfg.xml file.
 	@Bean
 	public LocalSessionFactoryBean getSessionFactory() {
 		System.out.println("Configuring session factory");
@@ -29,6 +30,8 @@ public class HibernateConfig {
 		return factoryBean;
 	}
 
+	
+	// Connects to the database
 	@Bean(name="dataSource")
 	public DataSource getDataSource() {
 		BasicDataSource dataSource = new BasicDataSource();
@@ -40,9 +43,11 @@ public class HibernateConfig {
 		return dataSource;
 	}
 	
+	
+	// Configures the transaction manager and extracts it.
 	@Bean
 	public HibernateTransactionManager getTransactionManager() {
-		System.out.println("Configuring Transaction Manger");
+		System.out.println("Configuring Transaction Manager");
 		HibernateTransactionManager transactionManager = new HibernateTransactionManager();
 		transactionManager.setSessionFactory(getSessionFactory().getObject());
 		return transactionManager;
