@@ -1,5 +1,7 @@
 package com.revature.services;
 
+import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -95,7 +97,7 @@ public class UserServices {
 	 */
 	@Transactional
 	public List<Reservation> pendingReservations(Date checkin) {
-		return roomRepo.get(rs);
+		return roomRepo.get(new ArrayList<rs>());
 	}
 
 }
