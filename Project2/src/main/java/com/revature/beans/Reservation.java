@@ -25,12 +25,11 @@ public class Reservation {
 	@Column(name="id")
 	private int id;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(cascade= {CascadeType.ALL}, fetch = FetchType.LAZY)
 	@JoinColumn(name = "guest_id")
 	private Guest guest;
 	
-	@OneToMany(mappedBy = "reservation",
-			cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "reservation", cascade = CascadeType.ALL)
 	private List<OccupiedRoom> occupiedRooms = new ArrayList<>();
 	
 	@Column(name="date_in")

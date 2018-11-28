@@ -43,7 +43,7 @@ public class Room {
 	private String name;
 	
 	@Column(name="status")
-	private String status = getReservedRoomStatus; // possible enum
+	private String status; //= getReservedRoomStatus; // possible enum
 	
 	@Column(name="smoke")
 	private boolean smoke;
