@@ -1,4 +1,4 @@
-package com.revature.beans;
+package com.revature.enums;
 
 public enum ReservedRoomStatus {
 	OCCUPIED,
@@ -15,5 +15,6 @@ public enum ReservedRoomStatus {
 	DNCO,
 	DUEOUT,
 	CHECKOUT,
-	LATECHECKOUT
+	LATECHECKOUT,
+	AVAILABLE
 }

@@ -1,81 +1,84 @@
 package com.revature.beans;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
+import com.revature.enums.ReservedRoomStatus;
+import com.revature.enums.RoomType;
+@Entity
+@Table(name = "reserved_room")
 public class ReservedRoom {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id")
+	@Column(name="reserved_room_id")
 	private int id;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "room_type_id")
-	private RoomType type;
+	private int numberOfRooms;
+	
+	private RoomType type; // enum
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "reservation_id")
 	private Reservation reservation;
 	
-	@Column(name="number_of_rooms")
-	private int numberOfRooms;
-	
-//	@Column(name="room_type_id") // might not be needed
-//	private int roomTypeId;
-	
-//	@Column(name="reservation_id") // might not be needed
-//	private int reservationId;
 	
 	// Going to have to be enumerated w/..
 	// ..ReservedRoomStatus enum
-	@Column(name="status") 
-	private String status;
+	private ReservedRoomStatus status;
 
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public RoomType getType() {
-		return type;
-	}
-
-	public void setType(RoomType type) {
-		this.type = type;
-	}
-
-	public Reservation getReservation() {
-		return reservation;
-	}
-
-	public void setReservation(Reservation reservation) {
-		this.reservation = reservation;
-	}
 
 	public int getNumberOfRooms() {
 		return numberOfRooms;
 	}
 
+
 	public void setNumberOfRooms(int numberOfRooms) {
 		this.numberOfRooms = numberOfRooms;
 	}
 
-	public String getStatus() {
+
+	public RoomType getType() {
+		return type;
+	}
+
+
+	public void setType(RoomType type) {
+		this.type = type;
+	}
+
+
+	public Reservation getReservation() {
+		return reservation;
+	}
+
+
+	public void setReservation(Reservation reservation) {
+		this.reservation = reservation;
+	}
+
+
+	public ReservedRoomStatus getStatus() {
 		return status;
 	}
 
-	public void setStatus(String status) {
+
+	public void setStatus(ReservedRoomStatus status) {
 		this.status = status;
 	}
+
+
+	public int getId() {
+		return id;
+	}
+
 
 	@Override
 	public int hashCode() {
@@ -88,6 +91,7 @@ public class ReservedRoom {
 		result = prime * result + ((type == null) ? 0 : type.hashCode());
 		return result;
 	}
+
 
 	@Override
 	public boolean equals(Object obj) {
@@ -107,35 +111,32 @@ public class ReservedRoom {
 				return false;
 		} else if (!reservation.equals(other.reservation))
 			return false;
-		if (status == null) {
-			if (other.status != null)
-				return false;
-		} else if (!status.equals(other.status))
+		if (status != other.status)
 			return false;
-		if (type == null) {
-			if (other.type != null)
-				return false;
-		} else if (!type.equals(other.type))
+		if (type != other.type)
 			return false;
 		return true;
 	}
 
-	@Override
-	public String toString() {
-		return "ReservedRoom [id=" + id + ", type=" + type + ", reservation=" + reservation + ", numberOfRooms="
-				+ numberOfRooms + ", status=" + status + "]";
-	}
 
-	public ReservedRoom(RoomType type, Reservation reservation, int numberOfRooms, String status) {
+	public ReservedRoom(int numberOfRooms, RoomType type, Reservation reservation, ReservedRoomStatus status) {
 		super();
+		this.numberOfRooms = numberOfRooms;
 		this.type = type;
 		this.reservation = reservation;
-		this.numberOfRooms = numberOfRooms;
 		this.status = status;
 	}
 
+
 	public ReservedRoom() {
 		super();
+		// TODO Auto-generated constructor stub
 	}
+
+
+	
+
+	
+	
 	
 }
