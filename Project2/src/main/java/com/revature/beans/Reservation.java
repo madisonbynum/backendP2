@@ -4,7 +4,6 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -22,16 +21,21 @@ public class Reservation {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id")
+	@Column(name="reservation_id")
 	private int id;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "guest_id")
 	private Guest guest;
 	
-	@OneToMany(mappedBy = "reservation",
-			cascade = CascadeType.ALL)
+	@OneToMany(fetch=FetchType.LAZY)
+	@JoinColumn(name="reservation_id")
 	private List<OccupiedRoom> occupiedRooms = new ArrayList<>();
+	
+	@OneToMany(fetch=FetchType.LAZY)
+	@JoinColumn(name="reservation_id")
+	private List<ReservedRoom> reservedRooms = new ArrayList<>();
+	
 	
 	@Column(name="date_in")
 	private Date dateIn; // SQL date
@@ -41,14 +45,6 @@ public class Reservation {
 	
 	@Column(name="made_by")
 	private String madeBy;
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
 
 	public Guest getGuest() {
 		return guest;
@@ -64,6 +60,14 @@ public class Reservation {
 
 	public void setOccupiedRooms(List<OccupiedRoom> occupiedRooms) {
 		this.occupiedRooms = occupiedRooms;
+	}
+
+	public List<ReservedRoom> getReservedRooms() {
+		return reservedRooms;
+	}
+
+	public void setReservedRooms(List<ReservedRoom> reservedRooms) {
+		this.reservedRooms = reservedRooms;
 	}
 
 	public Date getDateIn() {
@@ -90,6 +94,10 @@ public class Reservation {
 		this.madeBy = madeBy;
 	}
 
+	public int getId() {
+		return id;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -100,6 +108,7 @@ public class Reservation {
 		result = prime * result + id;
 		result = prime * result + ((madeBy == null) ? 0 : madeBy.hashCode());
 		result = prime * result + ((occupiedRooms == null) ? 0 : occupiedRooms.hashCode());
+		result = prime * result + ((reservedRooms == null) ? 0 : reservedRooms.hashCode());
 		return result;
 	}
 
@@ -139,7 +148,29 @@ public class Reservation {
 				return false;
 		} else if (!occupiedRooms.equals(other.occupiedRooms))
 			return false;
+		if (reservedRooms == null) {
+			if (other.reservedRooms != null)
+				return false;
+		} else if (!reservedRooms.equals(other.reservedRooms))
+			return false;
 		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "Reservation [id=" + id + ", guest=" + guest + ", occupiedRooms=" + occupiedRooms + ", reservedRooms="
+				+ reservedRooms + ", dateIn=" + dateIn + ", dateOut=" + dateOut + ", madeBy=" + madeBy + "]";
+	}
+
+	public Reservation(Guest guest, List<OccupiedRoom> occupiedRooms, List<ReservedRoom> reservedRooms, Date dateIn,
+			Date dateOut, String madeBy) {
+		super();
+		this.guest = guest;
+		this.occupiedRooms = occupiedRooms;
+		this.reservedRooms = reservedRooms;
+		this.dateIn = dateIn;
+		this.dateOut = dateOut;
+		this.madeBy = madeBy;
 	}
 
 	public Reservation() {
@@ -147,23 +178,6 @@ public class Reservation {
 		// TODO Auto-generated constructor stub
 	}
 
-	@Override
-	public String toString() {
-		return "Reservation [id=" + id + ", guest=" + guest + ", occupiedRooms=" + occupiedRooms + ", dateIn=" + dateIn
-				+ ", dateOut=" + dateOut + ", madeBy=" + madeBy + "]";
-	}
-
-	public Reservation(Guest guest, List<OccupiedRoom> occupiedRooms, Date dateIn, Date dateOut, String madeBy) {
-		super();
-		this.guest = guest;
-		this.occupiedRooms = occupiedRooms;
-		this.dateIn = dateIn;
-		this.dateOut = dateOut;
-		this.madeBy = madeBy;
-	}
-	
-//	@Column(name="guest_id") // connected to guest 
-//	private int guestId;	 // might not be needed
 	
 
 }

@@ -37,6 +37,7 @@ public class GuestController {
 		return this.userService.create(rs);
 	}
 	
+	
 	@GetMapping("")
 	@ResponseStatus(HttpStatus.CREATED)
 	public List<Room> avaialbleRooms(String status) {

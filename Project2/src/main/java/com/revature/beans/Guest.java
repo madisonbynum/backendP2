@@ -1,14 +1,15 @@
 package com.revature.beans;
 
-import java.util.ArrayList;
+import java.sql.Date;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -17,33 +18,23 @@ import javax.persistence.Table;
 public class Guest {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id")
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="guest_id")
 	private int id;
 	
-	@OneToMany(mappedBy = "reservation",
-			cascade = CascadeType.ALL)
-	private List<Reservation> reservations = new ArrayList<>();
-
-	@Column(name = "first_name")
 	private String firstName;
-
-	@Column(name = "last_name")
+	
 	private String lastName;
-
-	@Column(name = "email")
-	private String email;
-
-	@Column(name = "phone")
-	private long phone;
-
-	@Column(name = "address")
-	private String address;
-
-	public int getId() {
-		return id;
-	}
-
+	
+	private Date memberSince;
+	
+	@OneToMany(fetch=FetchType.LAZY)
+	@JoinColumn(name="guest_id")
+	private List<Reservation> reservations;
+	
+	@OneToMany(fetch=FetchType.LAZY)
+	@JoinColumn(name="guest_id")
+	private List<HostedAt> hostedAts;
 
 	public String getFirstName() {
 		return firstName;
@@ -61,40 +52,44 @@ public class Guest {
 		this.lastName = lastName;
 	}
 
-	public String getEmail() {
-		return email;
+	public Date getMemberSince() {
+		return memberSince;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setMemberSince(Date memberSince) {
+		this.memberSince = memberSince;
 	}
 
-	public long getPhone() {
-		return phone;
+	public List<Reservation> getReservations() {
+		return reservations;
 	}
 
-	public void setPhone(long phone) {
-		this.phone = phone;
+	public void setReservations(List<Reservation> reservations) {
+		this.reservations = reservations;
 	}
 
-	public String getAddress() {
-		return address;
+	public List<HostedAt> getHostedAts() {
+		return hostedAts;
 	}
 
-	public void setAddress(String address) {
-		this.address = address;
+	public void setHostedAts(List<HostedAt> hostedAts) {
+		this.hostedAts = hostedAts;
+	}
+
+	public int getId() {
+		return id;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((address == null) ? 0 : address.hashCode());
-		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
+		result = prime * result + ((hostedAts == null) ? 0 : hostedAts.hashCode());
 		result = prime * result + id;
 		result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
-		result = prime * result + (int) (phone ^ (phone >>> 32));
+		result = prime * result + ((memberSince == null) ? 0 : memberSince.hashCode());
+		result = prime * result + ((reservations == null) ? 0 : reservations.hashCode());
 		return result;
 	}
 
@@ -107,20 +102,15 @@ public class Guest {
 		if (getClass() != obj.getClass())
 			return false;
 		Guest other = (Guest) obj;
-		if (address == null) {
-			if (other.address != null)
-				return false;
-		} else if (!address.equals(other.address))
-			return false;
-		if (email == null) {
-			if (other.email != null)
-				return false;
-		} else if (!email.equals(other.email))
-			return false;
 		if (firstName == null) {
 			if (other.firstName != null)
 				return false;
 		} else if (!firstName.equals(other.firstName))
+			return false;
+		if (hostedAts == null) {
+			if (other.hostedAts != null)
+				return false;
+		} else if (!hostedAts.equals(other.hostedAts))
 			return false;
 		if (id != other.id)
 			return false;
@@ -129,29 +119,43 @@ public class Guest {
 				return false;
 		} else if (!lastName.equals(other.lastName))
 			return false;
-		if (phone != other.phone)
+		if (memberSince == null) {
+			if (other.memberSince != null)
+				return false;
+		} else if (!memberSince.equals(other.memberSince))
+			return false;
+		if (reservations == null) {
+			if (other.reservations != null)
+				return false;
+		} else if (!reservations.equals(other.reservations))
 			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "Guest [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
-				+ ", phone=" + phone + ", address=" + address + "]";
+		return "Guest [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", memberSince="
+				+ memberSince + ", reservations=" + reservations + ", hostedAts=" + hostedAts + "]";
 	}
 
-	public Guest(String firstName, String lastName, String email, long phone, String address) {
+	public Guest(String firstName, String lastName, Date memberSince, List<Reservation> reservations,
+			List<HostedAt> hostedAts) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.email = email;
-		this.phone = phone;
-		this.address = address;
+		this.memberSince = memberSince;
+		this.reservations = reservations;
+		this.hostedAts = hostedAts;
 	}
 
 	public Guest() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
+	
+
+
+	
 
 }

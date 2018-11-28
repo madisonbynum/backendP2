@@ -33,7 +33,8 @@ public class ManagerController {
 		this.userService = userService;
 	}
 	
-	// Receives a post request w/ the a specified URI "" and runs this specific method.
+	/* Receives a post request w/ the a specified URI "" and runs this specific method.
+	 */
 	@PostMapping("")
 	@ResponseStatus(HttpStatus.CREATED)
 	public Reservation createReservation(@RequestBody Reservation rs) {

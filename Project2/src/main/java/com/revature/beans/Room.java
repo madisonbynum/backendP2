@@ -3,7 +3,6 @@ package com.revature.beans;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -11,50 +10,45 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.revature.enums.ReservedRoomStatus;
+import com.revature.enums.RoomType;
 
 @Entity
 @Table(name="room")
 public class Room {
 
 	@Id
-	@Column(name="id")
+	@Column(name="room_id")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
+	
 	
 	/*
 	 * Maps a One-to-many relationship that relies on the 
 	 * many-to-one side to propagate all entity state changes
 	 */
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "room_type_id")
+
 	private RoomType type;
 	
-	@OneToMany(mappedBy = "occupied_room",
-			cascade = CascadeType.ALL)
+	
+	@OneToMany(fetch=FetchType.LAZY)
+	@JoinColumn(name="room_id")
 	private List<OccupiedRoom> occupiedRooms = new ArrayList<>();
 	
 	@Column(name="number")
 	private int number;
 	
-	@Column(name="name")
-	private String name;
-	
 	@Column(name="status")
-	private String status = getReservedRoomStatus; // possible enum
+	private ReservedRoomStatus status; // possible enum
 	
 	@Column(name="smoke")
 	private boolean smoke;
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
+	
+	@Column(name="ocean_side_view")
+	private boolean oceanSideView;
 
 	public RoomType getType() {
 		return type;
@@ -80,19 +74,11 @@ public class Room {
 		this.number = number;
 	}
 
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getStatus() {
+	public ReservedRoomStatus getStatus() {
 		return status;
 	}
 
-	public void setStatus(String status) {
+	public void setStatus(ReservedRoomStatus status) {
 		this.status = status;
 	}
 
@@ -104,14 +90,26 @@ public class Room {
 		this.smoke = smoke;
 	}
 
+	public boolean isOceanSideView() {
+		return oceanSideView;
+	}
+
+	public void setOceanSideView(boolean oceanSideView) {
+		this.oceanSideView = oceanSideView;
+	}
+
+	public int getId() {
+		return id;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + id;
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + number;
 		result = prime * result + ((occupiedRooms == null) ? 0 : occupiedRooms.hashCode());
+		result = prime * result + (oceanSideView ? 1231 : 1237);
 		result = prime * result + (smoke ? 1231 : 1237);
 		result = prime * result + ((status == null) ? 0 : status.hashCode());
 		result = prime * result + ((type == null) ? 0 : type.hashCode());
@@ -129,11 +127,6 @@ public class Room {
 		Room other = (Room) obj;
 		if (id != other.id)
 			return false;
-		if (name == null) {
-			if (other.name != null)
-				return false;
-		} else if (!name.equals(other.name))
-			return false;
 		if (number != other.number)
 			return false;
 		if (occupiedRooms == null) {
@@ -141,17 +134,13 @@ public class Room {
 				return false;
 		} else if (!occupiedRooms.equals(other.occupiedRooms))
 			return false;
+		if (oceanSideView != other.oceanSideView)
+			return false;
 		if (smoke != other.smoke)
 			return false;
-		if (status == null) {
-			if (other.status != null)
-				return false;
-		} else if (!status.equals(other.status))
+		if (status != other.status)
 			return false;
-		if (type == null) {
-			if (other.type != null)
-				return false;
-		} else if (!type.equals(other.type))
+		if (type != other.type)
 			return false;
 		return true;
 	}
@@ -159,27 +148,32 @@ public class Room {
 	@Override
 	public String toString() {
 		return "Room [id=" + id + ", type=" + type + ", occupiedRooms=" + occupiedRooms + ", number=" + number
-				+ ", name=" + name + ", status=" + status + ", smoke=" + smoke + "]";
+				+ ", status=" + status + ", smoke=" + smoke + ", oceanSideView=" + oceanSideView + "]";
 	}
 
-	public Room(RoomType type, List<OccupiedRoom> occupiedRooms, int number, String name, String status,
-			boolean smoke) {
+	public Room(RoomType type, List<OccupiedRoom> occupiedRooms, int number, ReservedRoomStatus status, boolean smoke,
+			boolean oceanSideView) {
 		super();
 		this.type = type;
 		this.occupiedRooms = occupiedRooms;
 		this.number = number;
-		this.name = name;
 		this.status = status;
 		this.smoke = smoke;
+		this.oceanSideView = oceanSideView;
 	}
+	
+	
 
 	public Room() {
 		super();
 		// TODO Auto-generated constructor stub
-	} 
-	
-//	@Column(name="room_type_id") // might not be needed
-//	private int roomTypeId; // possible enum
+	}
+
 	
 	
+	
+	 
 }
+	
+	
+	
