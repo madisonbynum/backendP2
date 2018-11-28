@@ -1,5 +1,8 @@
 package com.revature.controllers;
 
+import java.sql.Date;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,7 +23,7 @@ public class EmployeeController {
 	UserServices userService;
 	
 	@Autowired
-	public EmployeeController(UserService userService) {
+	public EmployeeController(UserServices userService) {
 		super();
 		this.userService = userService;
 	}
@@ -51,6 +54,6 @@ public class EmployeeController {
 	@GetMapping("")
 	@ResponseStatus(HttpStatus.CREATED)
 	public List<Reservation> pendingReservations(Date checkIn) { // need to look at Caleb's code.
-		return this.userService.pendingReservations(checkin);
+		return this.userService.pendingReservations(checkIn);
 	}
 }
