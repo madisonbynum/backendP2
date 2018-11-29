@@ -1,0 +1,20 @@
+package com.revature.enums;
+
+public enum ReservedRoomStatus {
+	OCCUPIED,
+	STAYOVER,
+	ONCHANGE,
+	DONOTDISTURB,
+	CLEANINGINPROGRESS,
+	SLEEPOUT,
+	ONQUEUE,
+	SKIPPER,
+	OOO,
+	OOS,
+	LOCKOUT,
+	DNCO,
+	DUEOUT,
+	CHECKOUT,
+	LATECHECKOUT,
+	AVAILABLE
+}
