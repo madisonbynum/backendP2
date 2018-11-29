@@ -13,17 +13,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.revature.beans.Employee;
 import com.revature.beans.Reservation;
+import com.revature.services.LoginService;
 import com.revature.services.UserServices;
 
 @RestController
-@RequestMapping("")
+@RequestMapping("staff")
 public class EmployeeController {
 	
 	UserServices userService;
+	LoginService loginService;
 	
 	@Autowired
-	public EmployeeController(UserServices userService) {
+	public EmployeeController(UserServices userService, LoginService loginService) {
 		super();
 		this.userService = userService;
 	}
@@ -33,6 +36,12 @@ public class EmployeeController {
 	@ResponseStatus(HttpStatus.CREATED)
 	public Reservation createReservation(@RequestBody Reservation rs) {
 		return this.userService.create(rs);
+	}
+	
+	@PostMapping("login")
+	@ResponseStatus(HttpStatus.CREATED)
+	public Employee createEmployee(@RequestBody Employee emp) {
+		return this.loginService.create(emp);
 	}
 	
 	

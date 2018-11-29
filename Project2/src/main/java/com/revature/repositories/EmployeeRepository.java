@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.revature.beans.Employee;
 import com.revature.beans.Reservation;
 
 @Repository
@@ -28,6 +29,11 @@ public class EmployeeRepository {
 	public EmployeeRepository(SessionFactory sf) {
 		super();
 		this.sf = sf;
+	}
+
+	@Transactional
+	public void insert(Employee emp) {
+		sf.getCurrentSession().persist(emp);
 	}
 
 }
