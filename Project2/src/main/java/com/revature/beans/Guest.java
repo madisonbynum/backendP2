@@ -26,7 +26,10 @@ public class Guest {
 	
 	private String lastName;
 	
-	private Date memberSince;
+	private String email;
+	
+	private String phoneNumber;
+
 	
 	@OneToMany(fetch=FetchType.LAZY)
 	@JoinColumn(name="guest_id")
@@ -35,6 +38,14 @@ public class Guest {
 	@OneToMany(fetch=FetchType.LAZY)
 	@JoinColumn(name="guest_id")
 	private List<HostedAt> hostedAts;
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 
 	public String getFirstName() {
 		return firstName;
@@ -52,12 +63,20 @@ public class Guest {
 		this.lastName = lastName;
 	}
 
-	public Date getMemberSince() {
-		return memberSince;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setMemberSince(Date memberSince) {
-		this.memberSince = memberSince;
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
 	}
 
 	public List<Reservation> getReservations() {
@@ -76,19 +95,38 @@ public class Guest {
 		this.hostedAts = hostedAts;
 	}
 
-	public int getId() {
-		return id;
+	public Guest(String firstName, String lastName, String email, String phoneNumber,
+			List<Reservation> reservations, List<HostedAt> hostedAts) {
+		super();
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+		this.phoneNumber = phoneNumber;
+		this.reservations = reservations;
+		this.hostedAts = hostedAts;
+	}
+
+	public Guest() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	public String toString() {
+		return "Guest [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
+				+ ", phoneNumber=" + phoneNumber + ", reservations=" + reservations + ", hostedAts=" + hostedAts + "]";
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
 		result = prime * result + ((hostedAts == null) ? 0 : hostedAts.hashCode());
 		result = prime * result + id;
 		result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
-		result = prime * result + ((memberSince == null) ? 0 : memberSince.hashCode());
+		result = prime * result + ((phoneNumber == null) ? 0 : phoneNumber.hashCode());
 		result = prime * result + ((reservations == null) ? 0 : reservations.hashCode());
 		return result;
 	}
@@ -102,6 +140,11 @@ public class Guest {
 		if (getClass() != obj.getClass())
 			return false;
 		Guest other = (Guest) obj;
+		if (email == null) {
+			if (other.email != null)
+				return false;
+		} else if (!email.equals(other.email))
+			return false;
 		if (firstName == null) {
 			if (other.firstName != null)
 				return false;
@@ -119,10 +162,10 @@ public class Guest {
 				return false;
 		} else if (!lastName.equals(other.lastName))
 			return false;
-		if (memberSince == null) {
-			if (other.memberSince != null)
+		if (phoneNumber == null) {
+			if (other.phoneNumber != null)
 				return false;
-		} else if (!memberSince.equals(other.memberSince))
+		} else if (!phoneNumber.equals(other.phoneNumber))
 			return false;
 		if (reservations == null) {
 			if (other.reservations != null)
@@ -132,28 +175,7 @@ public class Guest {
 		return true;
 	}
 
-	@Override
-	public String toString() {
-		return "Guest [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", memberSince="
-				+ memberSince + ", reservations=" + reservations + ", hostedAts=" + hostedAts + "]";
-	}
 
-	public Guest(String firstName, String lastName, Date memberSince, List<Reservation> reservations,
-			List<HostedAt> hostedAts) {
-		super();
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.memberSince = memberSince;
-		this.reservations = reservations;
-		this.hostedAts = hostedAts;
-	}
-
-	public Guest() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-	
-	
 
 
 	
