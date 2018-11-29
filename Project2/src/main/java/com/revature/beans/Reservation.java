@@ -42,9 +42,6 @@ public class Reservation {
 	
 	@Column(name="date_out")
 	private Date dateOut; // SQL date
-	
-	@Column(name="made_by")
-	private String madeBy;
 
 	public Guest getGuest() {
 		return guest;
@@ -86,16 +83,33 @@ public class Reservation {
 		this.dateOut = dateOut;
 	}
 
-	public String getMadeBy() {
-		return madeBy;
-	}
-
-	public void setMadeBy(String madeBy) {
-		this.madeBy = madeBy;
-	}
-
 	public int getId() {
 		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public Reservation(Guest guest, List<OccupiedRoom> occupiedRooms, List<ReservedRoom> reservedRooms, Date dateIn,
+			Date dateOut) {
+		super();
+		this.guest = guest;
+		this.occupiedRooms = occupiedRooms;
+		this.reservedRooms = reservedRooms;
+		this.dateIn = dateIn;
+		this.dateOut = dateOut;
+	}
+
+	public Reservation() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	public String toString() {
+		return "Reservation [id=" + id + ", guest=" + guest + ", occupiedRooms=" + occupiedRooms + ", reservedRooms="
+				+ reservedRooms + ", dateIn=" + dateIn + ", dateOut=" + dateOut + "]";
 	}
 
 	@Override
@@ -106,7 +120,6 @@ public class Reservation {
 		result = prime * result + ((dateOut == null) ? 0 : dateOut.hashCode());
 		result = prime * result + ((guest == null) ? 0 : guest.hashCode());
 		result = prime * result + id;
-		result = prime * result + ((madeBy == null) ? 0 : madeBy.hashCode());
 		result = prime * result + ((occupiedRooms == null) ? 0 : occupiedRooms.hashCode());
 		result = prime * result + ((reservedRooms == null) ? 0 : reservedRooms.hashCode());
 		return result;
@@ -138,11 +151,6 @@ public class Reservation {
 			return false;
 		if (id != other.id)
 			return false;
-		if (madeBy == null) {
-			if (other.madeBy != null)
-				return false;
-		} else if (!madeBy.equals(other.madeBy))
-			return false;
 		if (occupiedRooms == null) {
 			if (other.occupiedRooms != null)
 				return false;
@@ -156,28 +164,8 @@ public class Reservation {
 		return true;
 	}
 
-	@Override
-	public String toString() {
-		return "Reservation [id=" + id + ", guest=" + guest + ", occupiedRooms=" + occupiedRooms + ", reservedRooms="
-				+ reservedRooms + ", dateIn=" + dateIn + ", dateOut=" + dateOut + ", madeBy=" + madeBy + "]";
-	}
-
-	public Reservation(Guest guest, List<OccupiedRoom> occupiedRooms, List<ReservedRoom> reservedRooms, Date dateIn,
-			Date dateOut, String madeBy) {
-		super();
-		this.guest = guest;
-		this.occupiedRooms = occupiedRooms;
-		this.reservedRooms = reservedRooms;
-		this.dateIn = dateIn;
-		this.dateOut = dateOut;
-		this.madeBy = madeBy;
-	}
-
-	public Reservation() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
+	
+	
 	
 
 }
