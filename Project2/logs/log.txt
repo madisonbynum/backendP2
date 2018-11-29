@@ -387,3 +387,5 @@ Caused by: org.postgresql.util.PSQLException: ERROR: relation "reserved_room" do
 2018-11-27 19:21:10 WARN  SqlExceptionHelper$StandardWarningHandler:218 - table "reserved_room" does not exist, skipping
 2018-11-27 19:21:10 WARN  SqlExceptionHelper$StandardWarningHandler:217 - SQL Warning Code: 0, SQLState: 00000
 2018-11-27 19:21:10 WARN  SqlExceptionHelper$StandardWarningHandler:218 - table "room" does not exist, skipping
+2018-11-28 18:23:48 WARN  DriverManagerConnectionProviderImpl:71 - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2018-11-28 18:33:11 WARN  DriverManagerConnectionProviderImpl:71 - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
