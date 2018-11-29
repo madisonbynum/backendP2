@@ -2,6 +2,7 @@ package com.revature;
 
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
@@ -18,6 +19,7 @@ import com.revature.enums.ReservedRoomStatus;
 import com.revature.enums.RoomType;
 
 public class Launcher {
+	
 	static SessionFactory sf;
 	static Logger log = Logger.getRootLogger();
 	
@@ -28,10 +30,8 @@ public class Launcher {
 	public static void main(String[] args) {
 		sf= setUpSessionFactory();
 		Launcher launcher = new Launcher();
-		launcher.createRoom(); 
-		
-
-		
+		Guest guest = launcher.createGuest();
+		System.out.println(guest);
 		
 	}
 	
@@ -92,7 +92,10 @@ public class Launcher {
 	
 	public Guest createGuest() {
 		try(Session session = sf.openSession()) {
-			Guest guest = new Guest("Jonathan", "Bedolla", new Date(0), new ArrayList<Reservation>(),new ArrayList<HostedAt>());
+			Guest guest = new Guest("Austin", "R", "austin@gmail.com", "6822289873", new ArrayList<Reservation>(),new ArrayList<HostedAt>());
+//			int id, String firstName, String lastName, String email, String phoneNumber,
+//			List<Reservation> reservations, List<HostedAt> hostedAts
+			session.save(guest);
 			return guest;
 		}
 	}

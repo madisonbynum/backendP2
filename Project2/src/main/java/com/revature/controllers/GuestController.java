@@ -1,59 +1,45 @@
 package com.revature.controllers;
 
-import java.sql.Date;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.GetMapping;
+
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.revature.beans.Reservation;
-import com.revature.services.UserServices;
+import com.revature.beans.Guest;
+import com.revature.services.GuestService;
 
 @RestController
-@RequestMapping("")
-public class EmployeeController {
-	
-	UserServices userService;
-	
+@RequestMapping("guest")
+public class GuestController {
+
+	GuestService guestService;
+
 	@Autowired
-	public EmployeeController(UserServices userService) {
+	public GuestController(GuestService guestService) {
 		super();
-		this.userService = userService;
+		this.guestService = guestService;
 	}
-	
-	// 
+
 	@PostMapping("")
-	@ResponseStatus(HttpStatus.CREATED)
-	public Reservation createReservation(@RequestBody Reservation rs) {
-		return this.userService.create(rs);
-	}
-	
-	
-	
-	
-	// The following 3 methods are supposed to work together w/ Austin and Caleb's code.
-	@PutMapping("")
-	@ResponseStatus(HttpStatus.CREATED)
-	public Reservation checkin(@RequestBody Reservation rs) {
-		return this.userService.checkIn(rs);
-	}
-	
-	@PutMapping("")
-	@ResponseStatus(HttpStatus.CREATED)
-	public Reservation checkout(@RequestBody Reservation rs) {
-		return this.userService.checkOut(rs);
-	}
-	
-	@GetMapping("")
-	@ResponseStatus(HttpStatus.CREATED)
-	public List<Reservation> pendingReservations(Date checkIn) { // need to look at Caleb's code.
-		return this.userService.pendingReservations(checkIn);
-	}
+	public Guest createGuest(@RequestBody Guest guest) {
+//		Optional<Guest> optionalObject;
+//		List<Reservation> reservations = null;
+//		List<HostedAt> hostedAts = null;
+//
+//		if(email == null ) {
+//			throw new Exception();
+//		}
+//		else {
+//			optionalObject = Optional.of(new Guest(firstName, lastName, email, phoneNumber, reservations, hostedAts));
+//		}	
+//			
+//		ResponseEntity <Guest> guest = ResponseEntity
+//				.status(HttpStatus.CREATED)
+//				.body(optionalObject.orElseThrow(() -> new NullPointerException()));
+//		
+		System.out.println(guest);
+		return guestService.createGuest(guest);
+}
 }
