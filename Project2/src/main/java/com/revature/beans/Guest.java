@@ -32,7 +32,6 @@ public class Guest {
 
 	
 	@OneToMany(mappedBy="guest")
-	@JoinColumn
 	private List<Reservation> reservations;
 	
 	@OneToMany(fetch=FetchType.LAZY)
