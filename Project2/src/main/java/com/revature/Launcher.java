@@ -84,8 +84,7 @@ public class Launcher {
 	
 	public Reservation createReservation() {
 		try(Session session = sf.openSession()) {
-			Guest guest = createGuest();
-			Reservation reservation1 = new Reservation(guest, new ArrayList<OccupiedRoom>(), new ArrayList<ReservedRoom>(),new Date(0), new Date(0), "Made by something");
+			Reservation reservation1 = new Reservation(0, new ArrayList<OccupiedRoom>(), new ArrayList<ReservedRoom>(),new Date(0), new Date(0));
 			return reservation1;
 		}
 	}

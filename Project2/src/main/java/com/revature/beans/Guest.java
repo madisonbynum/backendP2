@@ -31,8 +31,7 @@ public class Guest {
 	private String phoneNumber;
 
 	
-	@OneToMany(fetch=FetchType.LAZY)
-	@JoinColumn(name="guest_id")
+	@OneToMany(mappedBy="guest")
 	private List<Reservation> reservations;
 	
 	@OneToMany(fetch=FetchType.LAZY)
