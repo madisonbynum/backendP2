@@ -1,5 +1,7 @@
 package com.revature.repositories;
 
+import java.net.HttpURLConnection;
+import java.sql.Date;
 import java.util.List;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -9,7 +11,12 @@ import javax.persistence.criteria.Root;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+
+import org.hibernate.type.DateType;
+
 import org.hibernate.query.Query;
+import org.hibernate.type.DateType;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -83,6 +90,7 @@ public class RoomRepository {
 		}
 	}
 
+
 	public List<Room> getRooms() {
 		sf = setUpSessionFactory();
 		try(Session session = sf.openSession()) {
@@ -95,5 +103,15 @@ public class RoomRepository {
 		System.out.println(roomModelList);
 		return roomModelList;
 	}
+  
+  	public List<?> getReservationByDate(Date date) {
+		sf = setUpSessionFactory();
+		try(Session session = sf.openSession()){
+			List<?> list = session.createQuery("select r from Reservation r where r.dateIn like :date_in")
+					.setParameter("date_in", date)
+					.getResultList();
+			return list;
+		}
+
 	}
 }

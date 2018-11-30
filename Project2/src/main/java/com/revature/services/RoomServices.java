@@ -1,6 +1,7 @@
 package com.revature.services;
 
 import java.util.List;
+import java.sql.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,6 +37,12 @@ public class RoomServices {
 	public List<Room> getRoom() {
 		
 		return roomRepository.getRooms();
+	}
+
+
+
+	public List<?> getReservationsByDate(Date date) {
+		return roomRepository.getReservationByDate(date);
 	}
 
 }

@@ -1,11 +1,16 @@
 package com.revature.controllers;
 
+
 import java.util.List;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.ZoneId;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -30,11 +35,25 @@ public class RoomControllers {
 		this.roomService = roomService;
 	}
 	
+//--------Reservation end points -------------------------------
+	
 	@PostMapping("reserve")
 	public Reservation createReservatoin(@RequestBody Reservation res, @RequestHeader HttpHeaders headers) {
 		System.out.println(res);
 	return roomService.creatReservatoin(res);
 	}
+	
+	@CrossOrigin
+	@GetMapping("viewres")
+	public List<?> getReservationsByDate(){
+		System.out.println("My endpoint");
+		Date date = Date.valueOf(LocalDate.now());
+		return roomService.getReservationsByDate(date);
+		
+	}
+	
+	
+//------------Room end points ------------------------------
 	
 	@CrossOrigin
 	@PostMapping("")
