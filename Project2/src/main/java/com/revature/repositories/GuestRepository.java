@@ -3,6 +3,7 @@ package com.revature.repositories;
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -54,7 +55,11 @@ public class GuestRepository {
 	public Guest createGuest(Guest guest) {
 		sf = setUpSessionFactory();
 		try(Session session = sf.openSession()) {
+			
+			
 			session.save(guest);
+			
+			
 			return guest;
 		}
 	}
