@@ -25,7 +25,7 @@ public class GuestController {
 	}
 	
 	
-	@CrossOrigin
+//	@CrossOrigin
 	@PostMapping("")
 	public Guest createGuest(@RequestBody Guest guest, @RequestHeader HttpHeaders headers) {
 //		Optional<Guest> optionalObject;
