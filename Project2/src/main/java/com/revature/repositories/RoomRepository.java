@@ -2,9 +2,14 @@ package com.revature.repositories;
 
 import java.util.List;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -76,5 +81,19 @@ public class RoomRepository {
 			session.save(res);
 			return res;
 		}
+	}
+
+	public List<Room> getRooms() {
+		sf = setUpSessionFactory();
+		try(Session session = sf.openSession()) {
+		CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
+		CriteriaQuery<Room> criteriaQuery = criteriaBuilder.createQuery(Room.class);
+		Root<Room> root = criteriaQuery.from(Room.class);
+		criteriaQuery.select(root).where();
+		Query<Room> query = session.createQuery(criteriaQuery);
+		List<Room> roomModelList = query.getResultList();
+		System.out.println(roomModelList);
+		return roomModelList;
+	}
 	}
 }

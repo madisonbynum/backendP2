@@ -1,8 +1,11 @@
 package com.revature.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.revature.beans.OccupiedRoom;
 import com.revature.beans.Reservation;
 import com.revature.beans.Room;
 import com.revature.repositories.RoomRepository;
@@ -28,6 +31,11 @@ public class RoomServices {
 
 	public Reservation creatReservatoin(Reservation res) {
 		return roomRepository.createReservation(res);
+	}
+	
+	public List<Room> getRoom() {
+		
+		return roomRepository.getRooms();
 	}
 
 }

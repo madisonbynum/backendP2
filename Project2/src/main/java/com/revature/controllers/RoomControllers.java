@@ -1,14 +1,19 @@
 package com.revature.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.revature.beans.OccupiedRoom;
 import com.revature.beans.Reservation;
 import com.revature.beans.Room;
 import com.revature.services.RoomServices;
@@ -36,6 +41,12 @@ public class RoomControllers {
 	public Room createRoom(@RequestBody Room room, @RequestHeader HttpHeaders headers) {
 		System.out.println(room);
 	return roomService.creatRoom(room);
+	}
+	
+	@GetMapping("")
+	public List<Room> getRooms(){
+	
+	return roomService.getRoom();
 	}
 	
 }
